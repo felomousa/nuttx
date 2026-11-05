@@ -918,6 +918,17 @@ config SCHED_IRQMONITOR
 		counts will be available in the mounted procfs file systems at the
 		top-level file, "irqs".
 
+config SCHED_READYLIST_STATS
+	bool "Count ready-to-run list insertion steps"
+	default n
+	depends on !SMP
+	---help---
+		Record how many list entries nxsched_add_prioritized() steps over
+		each time it inserts a task into the ready-to-run list.  The count
+		of the most recent insertion is stored in g_readylist_visits.  This
+		is a measurement aid for the sorted, interrupts-disabled insertion
+		and adds a small cost to every insertion.
+
 config SCHED_CRITMONITOR
 	bool "Enable Critical Section monitoring"
 	default n

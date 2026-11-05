@@ -863,6 +863,14 @@ EXTERN clock_t g_busywait_max[CONFIG_SMP_NCPUS];
 EXTERN clock_t g_busywait_total[CONFIG_SMP_NCPUS];
 #endif /* CONFIG_SCHED_CRITMONITOR_MAXTIME_BUSYWAIT >= 0 */
 
+#ifdef CONFIG_SCHED_READYLIST_STATS
+/* Number of entries stepped over by the most recent sorted insertion into
+ * the ready-to-run list.
+ */
+
+EXTERN uint32_t g_readylist_visits;
+#endif
+
 /* g_running_tasks[] holds a references to the running task for each CPU.
  * It is valid only when up_interrupt_context() returns true.
  */

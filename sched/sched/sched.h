@@ -481,6 +481,9 @@ static inline_function bool nxsched_add_prioritized(FAR struct tcb_s *tcb,
   FAR struct tcb_s *prev;
   uint8_t sched_priority = tcb->sched_priority;
   bool ret = false;
+#ifdef CONFIG_SCHED_READYLIST_STATS
+  uint32_t visits = 0;
+#endif
 
   /* Lets do a sanity check before we get started. */
 
@@ -492,7 +495,19 @@ static inline_function bool nxsched_add_prioritized(FAR struct tcb_s *tcb,
 
   for (next = (FAR struct tcb_s *)list->head;
        (next && sched_priority <= next->sched_priority);
-       next = next->flink);
+       next = next->flink)
+    {
+#ifdef CONFIG_SCHED_READYLIST_STATS
+      visits++;
+#endif
+    }
+
+#ifdef CONFIG_SCHED_READYLIST_STATS
+  if (list == list_readytorun())
+    {
+      g_readylist_visits = visits;
+    }
+#endif
 
   /* Add the tcb to the spot found in the list.  Check if the tcb
    * goes at the end of the list. NOTE:  This could only happen if list
