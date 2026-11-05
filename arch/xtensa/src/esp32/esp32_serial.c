@@ -314,7 +314,7 @@ static int esp32_interrupt_dma(int cpuint, void *context, void *arg);
  ****************************************************************************/
 
 #define UART_TX_FIFO_SIZE        128
-#define UART_RX_FIFO_FULL_THRHD  112
+#define UART_RX_FIFO_FULL_THRHD  CONFIG_ESP32_UART_RXFIFO_FULL_THRHD
 #define UART_RX_TOUT_THRHD_VALUE 0x02
 #define UART_RX_FLOW_THRHD_VALUE 64   /* Almost half RX FIFO size */
 

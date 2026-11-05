@@ -1152,6 +1152,16 @@ config UART_DMADESC_NUM
 	depends on SERIAL_TXDMA
 	default 2
 
+config ESP32_UART_RXFIFO_FULL_THRHD
+	int "RX FIFO full interrupt threshold"
+	default 112
+	range 1 127
+	---help---
+		Number of bytes in the 128-byte RX FIFO at which the RX interrupt
+		is raised.  The bytes above the threshold are the headroom that
+		absorbs the interrupt latency; if the interrupt is delayed for
+		longer than (128 - threshold) characters, received data is lost.
+
 endmenu # UART configuration
 
 menu "I2C Configuration"
